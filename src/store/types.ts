@@ -7,7 +7,7 @@ import {
 } from '~/services/auth/types'
 import {
   VacancyTableRequest,
-  VacancyTableResponse,
+  VacancyTableRow,
   VacancyTotalsRequest,
   VacancyTotalsResponse
 } from '~/services/vacancies/types'
@@ -69,7 +69,7 @@ export type ForgotStore = {
 }
 
 export type VacanciesStore = {
-  allVacancies: VacancyTableResponse | null
+  allVacancies: VacancyTableRow[]
   allVacanciesLoading: boolean
   vacancyDetailsLoading: boolean
   vacancyTotals: VacancyTotalsResponse

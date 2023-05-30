@@ -14,10 +14,7 @@ const createVacanciesSlice = (
   set: SetState<VacanciesStore>,
   get: GetState<VacanciesStore>
 ) => ({
-  allVacancies: {
-    count: 0,
-    rows: []
-  },
+  allVacancies: [],
   allVacanciesLoading: false,
   vacancyDetailsLoading: false,
   vacancyTotals: EMPTY_VACANCY_TOTALS,
@@ -25,10 +22,7 @@ const createVacanciesSlice = (
   getAllVacancies: async (params: VacancyTableRequest) => {
     try {
       set({
-        allVacancies: {
-          count: 0,
-          rows: []
-        },
+        allVacancies: [],
         allVacanciesLoading: true
       })
       const result = await VacanciesService.getAllVacancies(params)
@@ -36,10 +30,7 @@ const createVacanciesSlice = (
       set({ allVacancies: result, allVacanciesLoading: false })
     } catch (error) {
       set({
-        allVacancies: {
-          count: 0,
-          rows: []
-        },
+        allVacancies: [],
         allVacanciesLoading: false
       })
       toastError(error)

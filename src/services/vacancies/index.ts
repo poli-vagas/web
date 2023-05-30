@@ -2,7 +2,7 @@
 import api from '../api'
 import {
   VacancyTableRequest,
-  VacancyTableResponse,
+  VacancyTableRow,
   VacancyTotalsRequest,
   VacancyTotalsResponse
 } from './types'
@@ -10,9 +10,9 @@ import {
 class VacanciesService {
   async getAllVacancies(
     params: VacancyTableRequest
-  ): Promise<VacancyTableResponse> {
+  ): Promise<VacancyTableRow[]> {
     try {
-      const result = await api.post<VacancyTableResponse>('/jobs/search', {
+      const result = await api.post<VacancyTableRow[]>('/jobs/search', {
         params: {
           ...params,
           page: params?.page ? params?.page - 1 : 0

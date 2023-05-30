@@ -40,9 +40,9 @@ const Body: React.FC = () => {
 
   const handleFindVacancyById = useCallback(
     (id: string): VacancyTableRow | undefined => {
-      return allVacancies.rows.find((item: VacancyTableRow) => item.id === id)
+      return allVacancies.find((item: VacancyTableRow) => item.id === id)
     },
-    [allVacancies.rows]
+    [allVacancies]
   )
 
   const handleViewVacancy = useCallback(
@@ -142,9 +142,9 @@ const Body: React.FC = () => {
 
       <Table
         columns={mostPopularColumns}
-        count={allVacancies.count}
+        count={allVacancies.length}
         page={values.page}
-        data={allVacancies.rows.map((data: VacancyTableRow) => ({
+        data={allVacancies.map((data: VacancyTableRow) => ({
           ...data,
           createdTime: format(new Date(data.createdTime), 'dd/MM/yyyy'),
           limitDate: data.limitDate
