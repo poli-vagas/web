@@ -189,6 +189,7 @@ const Body: React.FC = () => {
             graduationDate: data.graduationDate
               ? format(new Date(data.graduationDate), 'dd/MM/yyyy')
               : '',
+            courses: vacancy.courses(data.courses),
             area:
               data.area.charAt(0).toUpperCase() +
               data.area.slice(1).toLowerCase(),

@@ -17,7 +17,13 @@ const Vacancies: React.FC = () => {
       validateOnBlur={false}
       validateOnChange={false}
       onSubmit={(values) => {
-        getAllVacancies({ ...values, name: values?.name || null })
+        const { notification, ...rest } = values
+        if (notification) console.log('notification', rest.filter)
+        else
+          getAllVacancies({
+            ...rest
+            // name: values?.name || null
+          })
       }}
     >
       {() => (

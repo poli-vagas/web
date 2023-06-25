@@ -74,7 +74,8 @@ export const Container = styled.button<ContainerProps>`
   ${({ outline }) => (outline ? OutlineButton : SolidButton)};
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: ${({ justifyContent }) =>
+    justifyContent ? justifyContent : 'space-evenly'};
   height: ${({ height }) => (height ? height : '7rem')};
   width: ${({ width }) => (width ? width : '100%')};
   border-radius: ${({ rounded }) => (rounded ? '4rem' : '1rem')};

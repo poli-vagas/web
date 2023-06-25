@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { removeEmptyStringProperties } from '~/utils/object'
 import api from '../api'
 import { VacancyTableRequest, VacancyTableResponse } from './types'
 
@@ -7,11 +8,11 @@ class VacanciesService {
     params: VacancyTableRequest
   ): Promise<VacancyTableResponse> {
     try {
+      const filter = removeEmptyStringProperties(params.filter)
       const result = await api.post<VacancyTableResponse>('/jobs/search', {
-        params: {
-          ...params,
-          page: params?.page ? params?.page - 1 : 0
-        }
+        ...params,
+        filter,
+        page: params?.page ? params?.page - 1 : 0
       })
       return result?.data
     } catch (error: any) {

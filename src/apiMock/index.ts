@@ -6,7 +6,7 @@ import {
   all_notifications_response,
   notification_details_response
 } from './notifications'
-import { all_vacancies_response, total_vacancies_response } from './vacancies'
+import { all_vacancies_response } from './vacancies'
 import {
   administrator_details_response,
   all_administrators_response
@@ -42,7 +42,6 @@ createServer({
     })
     this.post('/forgot/reset', () => new Response(200))
     this.post('/jobs/search', () => all_vacancies_response)
-    this.get('/jobs/totals', () => total_vacancies_response)
 
     this.get('/notifications', () => all_notifications_response)
     this.get('/notifications/:id', () => notification_details_response)

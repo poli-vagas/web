@@ -12,6 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   height?: string
   marginVertical?: string
   marginHorizontal?: string
+  justifyContent?: string
   loading?: boolean
   size?: typeof Sizes | Sizes
   color?: string

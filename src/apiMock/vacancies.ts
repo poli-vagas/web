@@ -15,7 +15,12 @@ export const all_vacancies_response = {
       limitDate: '2023-06-04T00:00:00',
       graduationDate: '2025-07-01T00:00:00',
       integrationAgent: null,
-      courses: null,
+      courses: [
+        {
+          id: '6b2eb552-d8bf-4bd7-ac6d-651ad94f8abf',
+          name: 'Engenharia Elétrica'
+        }
+      ],
       description:
         'Programa de Estágio Modec 2023.2 / você irá aprender e se desenvolver numa grande multinacional que está entre as líderes do mercado de Óleo e Gás. Nossos estagiários recebem 100% de apoio dos “Buddies”, os padrinhos que irão acompanhar a jornada com orientação profissional e muitos feedbacks. O Programa proporciona uma jornada de desenvolvimento com formações voltadas tanto para competências técnicas quanto para as comportamentais. Portanto se você é um estudante com alta capacidade de adaptação e está em busca de grandes aprendizados, desafios e compartilhamento de ideias, o seu lugar é na MODEC. Buscamos talentos com foco em melhoria contínua e na capacidade de solucionar problemas. Além disso, é muito importante que você se identifique com os nossos valores e que as suas ações sempre sejam guiadas por eles. Aqui você encontrará um ambiente de trabalho diverso, inclusivo e transformador!',
       area: 'DIVERSAS ÁREAS',
@@ -56,7 +61,7 @@ export const all_vacancies_response = {
       limitDate: null,
       graduationDate: null,
       integrationAgent: null,
-      courses: null,
+      courses: [],
       description:
         'Pessoa Consultora - Processos / Analisar as atribuições, papéis, governança, metodologias e modelos de processos. Avaliar formas de atuação de Escritório de Processos, bem como as metodologias e os modelos adotados com novas capacidades voltadas para uma jornada de transformação e inovação. Facilitar entrevistas e Workshops de diferentes níveis hierárquicos Realizar entendimento da situação atual e construir artefatos que representam visualmente os processos, incluindo entradas, atividades, produtos, gestores, sistemas e outros elementos. Realizar análise de desempenho do processo atual, análise de handoffs (transferência de responsabilidade sobre o processo), análise de regras de negócio, análise de capacidade, análise de variação, análise de gargalos, análise de controles do processo, análise de sistemas de informação. Identificar oportunidades de melhoria nos processos e sistemas, e desenhar cenário futuro em função da otimização do processo. Apresentar diagnósticos realizados e sugestão de priorização das melhorias, ponderando pontos positivos e negativos de cada melhoria no que se refere ao esforço, impacto e riscos.',
       area: 'CONSULTORIA',
@@ -99,7 +104,7 @@ export const all_vacancies_response = {
       limitDate: '2023-05-15T00:00:00',
       graduationDate: null,
       integrationAgent: null,
-      courses: null,
+      courses: [],
       description:
         'Estágio em Comercial / Na área Comercial, o nosso famoso ComerciLove, você irá atuar na prospecção de potenciais clientes e também no processo de qualificação deles. É muito importante que você goste de se comunicar e de se relacionar com outras pessoas, já que você vai participar de demonstrações e reuniões com os principais pesquisadores brasileiros! É legal também que você tenha alguma habilidade com números, para atuar no acompanhamento de métricas de conversão dos leads no funil de vendas. Ser gerente de si e ter organização também são habilidades-chave na área comercial!',
       area: 'COMERCIAL',
@@ -142,7 +147,7 @@ export const all_vacancies_response = {
       limitDate: '2023-05-19T00:00:00',
       graduationDate: null,
       integrationAgent: null,
-      courses: null,
+      courses: [],
       description:
         'Estágio em Sucesso do Cliente – CSI (Customer Success Intelligence) / Propor setups mais funcionais para a ferramenta, de acordo com a necessidade do Cliente e do propósito que vivenciamos; Realizar uma comunicação fantástica diariamente, por e-mail, com usuários da plataforma; Criar materiais de apoio e tutoriais incríveis que transmitam a nossa autenticidade, o diferencial da nossa ferramenta e a proposta de valor do Galoá; Aplicar, autônoma, autêntica e alegremente, treinamentos online que visam comunicar o impacto positivo do uso da nossa ferramenta para a comunidade científica! Identificar e aplicar, por meio da comunicação transparente com nossos clientes e usuários, as melhorias que podemos prover na ferramenta, nos processos e nos relacionamentos.',
       area: 'TECNOLOGIA DA INFORMAÇÃO',
@@ -184,7 +189,7 @@ export const all_vacancies_response = {
       limitDate: null,
       graduationDate: null,
       integrationAgent: null,
-      courses: null,
+      courses: [],
       description:
         'Analista Jr - Infraestrutura | Core / Atuar com projetos de infraestrutura de TI (desenvolvimento, implantação e acompanhamento); Fornecer monitoração e suporte a gestão dos serviços de infraestrutura (manutenção e melhoria contínua do ambiente corporativo – físico e virtual); Automatizar os processos de infraestrutura através de scripts Powershell e outras linguagens; Pesquisar e identificar novas soluções e tecnologias aplicáveis ao ambiente da empresa.',
       area: 'TECNOLOGIA DA INFORMAÇÃO',
@@ -226,7 +231,12 @@ export const all_vacancies_response = {
       limitDate: null,
       graduationDate: null,
       integrationAgent: null,
-      courses: null,
+      courses: [
+        {
+          id: '139923fa-04b1-44f5-9faa-73191c28ef7d',
+          name: 'Engenharia de Produção'
+        }
+      ],
       description:
         'ESTAGIÁRIO(A) / Auxiliar nas atividades de controle financeiro e orçamentário do Departamento, auxiliar na elaboração de relatórios construindo gráficos e agregando informações provenientes dos controles. O estagiário terá contato direto com a equipe e outros departamentos, podendo eventualmente participar de reuniões de trabalho.',
       area: 'ANÁLISE E OPERAÇÕES',
@@ -257,10 +267,4 @@ export const all_vacancies_response = {
       createdTime: '2023-05-17T15:51:42.933755Z'
     }
   ]
-}
-
-export const total_vacancies_response = {
-  totalVacancies: 140,
-  activeVacancies: 75,
-  totalPosts: 300
 }

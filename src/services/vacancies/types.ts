@@ -1,18 +1,31 @@
-export type Child = {
-  id: number
-  name: string
-  gender: 'male' | 'female'
-  bornDate: string
+export interface VacancyTableRequest {
+  filter: {
+    companyId?: string[]
+    type?: string[]
+    courseId?: string[]
+    minLimitDate?: string
+    maxLimitDate?: string
+    area?: string[]
+    workplace?: string[]
+    minHoursPerDay?: number
+    maxHoursPerDay?: number
+    minSalary?: number
+    hasFoodVoucher?: boolean
+    hasTransportVoucher?: boolean
+    hasHealthInsurance?: boolean
+    hasLifeInsurance?: boolean
+    englishLevel?: string[]
+    minCreatedTime?: string
+    maxCreatedTime?: string
+  }
+  pageSize: number
+  page: number
+  notification?: boolean
 }
 
-export interface VacancyTableRequest {
-  limit?: number
-  page?: number
-  period?: number
-  name?: string | null
-  salary?: string | null
-  hoursPerDay: string | null
-  type: string | null
+export interface NameId {
+  id: string
+  name: string
 }
 
 export interface Benefits {
@@ -20,7 +33,7 @@ export interface Benefits {
   hasTransportVoucher: boolean | null
   hasHealthInsurance: boolean | null
   hasLifeInsurance: boolean | null
-  others: boolean | null
+  others: string | null
 }
 
 export type VacancyTableRow = {
@@ -33,8 +46,8 @@ export type VacancyTableRow = {
   semester: number | null
   limitDate: string | null
   graduationDate: string | null
-  integrationAgent: null
-  courses: null
+  integrationAgent: NameId | null
+  courses: NameId[]
   description: string
   area: string
   workplace: string | null

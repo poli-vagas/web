@@ -32,7 +32,6 @@ const createVacanciesSlice = (
         allVacanciesLoading: true
       })
       const result = await VacanciesService.getAllVacancies(params)
-      console.log('result', result)
       set({ allVacancies: result, allVacanciesLoading: false })
     } catch (error) {
       set({

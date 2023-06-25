@@ -1,31 +1,31 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import DashboardHome from '~/pages/DashboardHome'
-import Forgot from '~/pages/Forgot'
-import Login from '~/pages/Login'
+// import Forgot from '~/pages/Forgot'
+// import Login from '~/pages/Login'
 import Vacancies from '~/pages/Vacancies'
 import Dashboard from '~/layouts/Dashboard'
-import PrivateRoute from './PrivateRoute'
+// import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import VacancyDetails from '~/modals/VacancyDetails'
-import Notifications from '~/pages/Notifications'
-import NotificationDetails from '~/modals/NotificationDetails'
-import Configurations from '~/pages/Configurations'
-import Administrators from '~/pages/Administrators'
-import AdministratorDetails from '~/modals/AdministratorDetails'
+// import Notifications from '~/pages/Notifications'
+// import NotificationDetails from '~/modals/NotificationDetails'
+// import Configurations from '~/pages/Configurations'
+// import Administrators from '~/pages/Administrators'
+// import AdministratorDetails from '~/modals/AdministratorDetails'
 
-const LoginComponent = () => (
-  <PublicRoute>
-    <Login />
-  </PublicRoute>
-)
+// const LoginComponent = () => (
+//   <PublicRoute>
+//     <Login />
+//   </PublicRoute>
+// )
 
-const ForgotComponent = () => (
-  <PublicRoute>
-    <Forgot />
-  </PublicRoute>
-)
+// const ForgotComponent = () => (
+//   <PublicRoute>
+//     <Forgot />
+//   </PublicRoute>
+// )
 
 const PrivateComponent = () => (
   <PublicRoute>
@@ -40,10 +40,11 @@ const RoutesApp: React.FC = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="">
-          <Route index element={<LoginComponent />} />
-          <Route path="forgot" element={<ForgotComponent />} />
-        </Route> */}
+        <Route path="">
+          <Route index element={<Navigate to="dash" />} />
+          {/* <Route index element={<LoginComponent />} />
+          <Route path="forgot" element={<ForgotComponent />} /> */}
+        </Route>
 
         <Route path="dash" element={<PrivateComponent />}>
           <Route index element={<DashboardHome />} />
@@ -73,14 +74,14 @@ const RoutesApp: React.FC = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route path="dash/vacancies/:id" element={<VacancyDetails />} />
-          <Route
+          {/* <Route
             path="dash/notification/view/:id"
             element={<NotificationDetails />}
           />
           <Route
             path="dash/administrators/edit/:id"
             element={<AdministratorDetails />}
-          />
+          /> */}
         </Routes>
       )}
     </>

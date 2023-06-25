@@ -5,6 +5,10 @@ export const BodyContainer = styled.div`
 `
 export const BodyText = styled.p`
   font-size: 22pt;
+  margin-bottom: 10px;
+`
+export const SmallText = styled.p`
+  font-size: 16pt;
   margin-bottom: 40px;
 `
 

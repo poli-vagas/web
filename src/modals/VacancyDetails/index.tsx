@@ -169,11 +169,11 @@ const VacancyDetails: React.FC = () => {
           </S.Row>
         )}
 
-        {vacancyDetails?.courses && (
+        {(vacancyDetails?.courses?.length ?? 0) > 0 && (
           <Input
             name="courses"
             id="courses"
-            value={vacancyDetails?.courses ?? ''}
+            value={vacancy.courses(vacancyDetails?.courses ?? [])}
             disabled
             marginVertical="1rem"
             size={Sizes.SMALL}
