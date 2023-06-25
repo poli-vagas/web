@@ -57,8 +57,31 @@ export const Row = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   & > div {
     max-width: 15rem;
   }
+`
+
+export const Clickable = styled.button`
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-width: 0;
+  margin-top: 10px;
+`
+
+export const ClickableText = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  margin-left: 10px;
+`
+
+export const Link = styled.a`
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  margin-top: 10px;
+`
+
+export const SmallText = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.md};
 `

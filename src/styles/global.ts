@@ -55,7 +55,7 @@ const GlobalStyles = createGlobalStyle`
     height: 0px;
   }
   ::-webkit-scrollbar-thumb {
-    background: #f8e1e1;
+    background: #e1e1f8;
     border: 0px none #ffffff;
     border-radius: 50px;
   }
@@ -74,7 +74,7 @@ const GlobalStyles = createGlobalStyle`
     background: #fafbfb;
   }
   ::-webkit-scrollbar-track:active {
-    background: #f8e1e1;
+    background: #e1e1f8;
   }
   ::-webkit-scrollbar-corner {
     background: transparent;

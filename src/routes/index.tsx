@@ -28,9 +28,9 @@ const ForgotComponent = () => (
 )
 
 const PrivateComponent = () => (
-  <PrivateRoute>
+  <PublicRoute>
     <Dashboard />
-  </PrivateRoute>
+  </PublicRoute>
 )
 
 const RoutesApp: React.FC = () => {
@@ -40,10 +40,10 @@ const RoutesApp: React.FC = () => {
   return (
     <>
       <Routes>
-        <Route path="">
+        {/* <Route path="">
           <Route index element={<LoginComponent />} />
           <Route path="forgot" element={<ForgotComponent />} />
-        </Route>
+        </Route> */}
 
         <Route path="dash" element={<PrivateComponent />}>
           <Route index element={<DashboardHome />} />
@@ -51,7 +51,7 @@ const RoutesApp: React.FC = () => {
             <Route path=":id" element={<Vacancies />} />
           </Route>
 
-          <Route path="notification">
+          {/* <Route path="notification">
             <Route index element={<Notifications />} />
             <Route path="view/:id" element={<Notifications />} />
             <Route path="new" element={<Notifications />} />
@@ -66,7 +66,7 @@ const RoutesApp: React.FC = () => {
             <Route index element={<Administrators />} />
             <Route path="edit/:id" element={<Administrators />} />
             <Route path="new" element={<Administrators />} />
-          </Route>
+          </Route> */}
         </Route>
       </Routes>
 

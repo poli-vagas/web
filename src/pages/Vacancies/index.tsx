@@ -7,9 +7,8 @@ import useStore from '~/store'
 import { INITIAL_PARAMS } from './types'
 
 const Vacancies: React.FC = () => {
-  const { getAllVacancies, getVacancyTotals } = useStore((store) => ({
-    getAllVacancies: store.getAllVacancies,
-    getVacancyTotals: store.getVacancyTotals
+  const { getAllVacancies } = useStore((store) => ({
+    getAllVacancies: store.getAllVacancies
   }))
 
   return (
@@ -19,9 +18,6 @@ const Vacancies: React.FC = () => {
       validateOnChange={false}
       onSubmit={(values) => {
         getAllVacancies({ ...values, name: values?.name || null })
-        getVacancyTotals({
-          period: Number(values.period)
-        })
       }}
     >
       {() => (

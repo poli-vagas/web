@@ -13,14 +13,7 @@ import { IoBriefcase, IoBriefcaseOutline } from 'react-icons/io5'
 import { vacancy } from '~/constants'
 
 const Body: React.FC = () => {
-  const {
-    vacancyTotals,
-    vacancyTotalsLoading,
-    allVacancies,
-    allVacanciesLoading
-  } = useStore((store) => ({
-    vacancyTotals: store.vacancyTotals,
-    vacancyTotalsLoading: store.vacancyTotalsLoading,
+  const { allVacancies, allVacanciesLoading } = useStore((store) => ({
     allVacancies: store.allVacancies,
     allVacanciesLoading: store.allVacanciesLoading
   }))
@@ -38,12 +31,12 @@ const Body: React.FC = () => {
     [handleSubmit, setFieldValue]
   )
 
-  const handleFindVacancyById = useCallback(
-    (id: string): VacancyTableRow | undefined => {
-      return allVacancies.rows.find((item: VacancyTableRow) => item.id === id)
-    },
-    [allVacancies.rows]
-  )
+  // const handleFindVacancyById = useCallback(
+  //   (id: string): VacancyTableRow | undefined => {
+  //     return allVacancies.jobs.find((item: VacancyTableRow) => item.id === id)
+  //   },
+  //   [allVacancies.jobs]
+  // )
 
   const handleViewVacancy = useCallback(
     (id: number) => {
@@ -52,15 +45,15 @@ const Body: React.FC = () => {
     [location, navigate]
   )
 
-  const handleSelect = useCallback(
-    (id: string) => {
-      const vacancy = handleFindVacancyById(id)
-      if (vacancy) {
-        console.log('select vacancy id: ', id)
-      }
-    },
-    [handleFindVacancyById]
-  )
+  // const handleSelect = useCallback(
+  //   (id: string) => {
+  //     const vacancy = handleFindVacancyById(id)
+  //     if (vacancy) {
+  //       console.log('select vacancy id: ', id)
+  //     }
+  //   },
+  //   [handleFindVacancyById]
+  // )
 
   const vacancyTotalCards = useMemo(() => {
     return [
@@ -68,16 +61,16 @@ const Body: React.FC = () => {
         id: uuid.v4(),
         icon: <IoBriefcaseOutline />,
         text: 'Total de vagas',
-        total: vacancyTotals.totalVacancies
+        total: allVacancies.total
       },
       {
         id: uuid.v4(),
         icon: <IoBriefcase />,
-        text: 'Vagas ativas',
-        total: vacancyTotals.activeVacancies
+        text: 'Vagas filtradas',
+        total: allVacancies.totalFiltered
       }
     ]
-  }, [vacancyTotals])
+  }, [allVacancies])
 
   const mostPopularColumns = [
     {
@@ -87,8 +80,50 @@ const Body: React.FC = () => {
       width: '30rem'
     },
     {
-      Header: 'Data de cadastro',
-      accessor: 'createdTime',
+      Header: 'Tipo',
+      accessor: 'type',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Semestre',
+      accessor: 'semester',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Data limite para inscrção',
+      accessor: 'limitDate',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Data da graduação',
+      accessor: 'graduationDate',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Cursos',
+      accessor: 'courses',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Area',
+      accessor: 'area',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Espaço de trabalho',
+      accessor: 'workplace',
+      align: 'left',
+      width: '30rem'
+    },
+    {
+      Header: 'Horas por dia',
+      accessor: 'hoursPerDay',
       align: 'left',
       width: '30rem'
     },
@@ -100,25 +135,19 @@ const Body: React.FC = () => {
       type: 'money'
     },
     {
-      Header: 'Horas por dia',
-      accessor: 'hoursPerDay',
+      Header: 'Nível inglês',
+      accessor: 'requirements.englishLevel',
       align: 'left',
       width: '30rem'
     },
     {
-      Header: 'Data limite para inscrção',
-      accessor: 'limitDate',
+      Header: 'Data de cadastro',
+      accessor: 'createdTime',
       align: 'left',
       width: '30rem'
     },
     {
-      Header: 'Tipo',
-      accessor: 'type',
-      align: 'left',
-      width: '30rem'
-    },
-    {
-      Header: 'Ações',
+      Header: 'Visualizar',
       accessor: 'actions',
       align: 'center',
       width: '30rem',
@@ -131,7 +160,7 @@ const Body: React.FC = () => {
       <S.BodyCardsGroup>
         {vacancyTotalCards.map((card) => (
           <CardTotal
-            loading={vacancyTotalsLoading}
+            loading={allVacanciesLoading}
             key={card.id}
             icon={card.icon}
             text={card.text}
@@ -142,21 +171,44 @@ const Body: React.FC = () => {
 
       <Table
         columns={mostPopularColumns}
-        count={allVacancies.count}
+        count={allVacancies.total}
         page={values.page}
-        data={allVacancies.rows.map((data: VacancyTableRow) => ({
-          ...data,
-          createdTime: format(new Date(data.createdTime), 'dd/MM/yyyy'),
-          limitDate: data.limitDate
-            ? format(new Date(data.limitDate), 'dd/MM/yyyy')
-            : '',
-          type: vacancy.type(data.type ?? '')
-        }))}
+        data={
+          allVacancies?.jobs?.map?.((data: VacancyTableRow) => ({
+            ...data,
+            company: {
+              name: data.company.name.replace(
+                'EMPRESA NÃO INFORMADA - SUPER ESTÁGIOS',
+                'N/A - Super estágios'
+              )
+            },
+            type: vacancy.type(data.type ?? ''),
+            limitDate: data.limitDate
+              ? format(new Date(data.limitDate), 'dd/MM/yyyy')
+              : '',
+            graduationDate: data.graduationDate
+              ? format(new Date(data.graduationDate), 'dd/MM/yyyy')
+              : '',
+            area:
+              data.area.charAt(0).toUpperCase() +
+              data.area.slice(1).toLowerCase(),
+            workplace: vacancy.workplace(data.workplace ?? ''),
+            requirements: {
+              ...data.requirements,
+              englishLevel: vacancy.englishLevel(
+                data.requirements.englishLevel ?? ''
+              )
+            },
+            createdTime: data.createdTime
+              ? format(new Date(data.createdTime), 'dd/MM/yyyy')
+              : ''
+          })) ?? []
+        }
         loading={allVacanciesLoading}
         onGetNextPage={handleChangePage}
         actions={{
-          view: handleViewVacancy,
-          select: handleSelect
+          view: handleViewVacancy
+          // select: handleSelect
         }}
       />
     </S.Container>

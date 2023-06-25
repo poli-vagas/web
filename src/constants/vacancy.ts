@@ -1,3 +1,5 @@
+import { Benefits } from '~/services/vacancies/types'
+
 export const type = (t: string) => {
   switch (t) {
     case 'Trainee':
@@ -7,7 +9,7 @@ export const type = (t: string) => {
     case 'FullTime':
       return 'Emprego'
     default:
-      return 'Trainee'
+      return ''
   }
 }
 
@@ -29,3 +31,59 @@ export const TYPE_LIST = [
   { value: 'Internship', label: 'Estágio' },
   { value: 'FullTime', label: 'Emprego' }
 ]
+
+export const workplace = (t: string) => {
+  switch (t) {
+    case 'Remote':
+      return 'Remoto'
+    case 'Office':
+      return 'Presencial'
+    case 'Hybrid':
+      return 'Híbrido'
+    default:
+      return ''
+  }
+}
+
+export const englishLevel = (t: string) => {
+  switch (t) {
+    case 'Beginner':
+      return 'Básico'
+    case 'Intermediate':
+      return 'Intermediário'
+    case 'Advanced':
+      return 'Avançado'
+    default:
+      return ''
+  }
+}
+
+export const benefits = (benefits?: Benefits): string => {
+  const benefitList: string[] = []
+
+  if (benefits?.hasFoodVoucher) {
+    benefitList.push('Vale alimentação')
+  }
+
+  if (benefits?.hasTransportVoucher) {
+    benefitList.push('Vale transporte')
+  }
+
+  if (benefits?.hasHealthInsurance) {
+    benefitList.push('Plano de saúde')
+  }
+
+  if (benefits?.hasLifeInsurance) {
+    benefitList.push('Seguro de vida')
+  }
+
+  if (benefits?.others) {
+    benefitList.push('Outros benefícios')
+  }
+
+  if (benefitList.length === 0) {
+    return ''
+  }
+
+  return benefitList.join(', ')
+}

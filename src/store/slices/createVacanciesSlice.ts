@@ -4,30 +4,30 @@ import { GetState, SetState } from 'zustand'
 import { toastError, toastSuccess } from '~/utils/toast'
 import VacanciesService from '~/services/vacancies'
 import { VacanciesStore } from '../types'
-import {
-  VacancyTableRequest,
-  VacancyTotalsRequest
-} from '~/services/vacancies/types'
-import { EMPTY_VACANCY_TOTALS } from '../emptyValues/vacancies'
+import { VacancyTableRequest } from '~/services/vacancies/types'
 
 const createVacanciesSlice = (
   set: SetState<VacanciesStore>,
   get: GetState<VacanciesStore>
 ) => ({
   allVacancies: {
-    count: 0,
-    rows: []
+    page: 0,
+    pageSize: 0,
+    total: 0,
+    totalFiltered: 0,
+    jobs: []
   },
   allVacanciesLoading: false,
   vacancyDetailsLoading: false,
-  vacancyTotals: EMPTY_VACANCY_TOTALS,
-  vacancyTotalsLoading: false,
   getAllVacancies: async (params: VacancyTableRequest) => {
     try {
       set({
         allVacancies: {
-          count: 0,
-          rows: []
+          page: 0,
+          pageSize: 0,
+          total: 0,
+          totalFiltered: 0,
+          jobs: []
         },
         allVacanciesLoading: true
       })
@@ -37,21 +37,14 @@ const createVacanciesSlice = (
     } catch (error) {
       set({
         allVacancies: {
-          count: 0,
-          rows: []
+          page: 0,
+          pageSize: 0,
+          total: 0,
+          totalFiltered: 0,
+          jobs: []
         },
         allVacanciesLoading: false
       })
-      toastError(error)
-    }
-  },
-  getVacancyTotals: async (params: VacancyTotalsRequest) => {
-    try {
-      set({ vacancyTotals: EMPTY_VACANCY_TOTALS, vacancyTotalsLoading: true })
-      const result = await VacanciesService.getVacanciesTotals(params)
-      set({ vacancyTotals: result, vacancyTotalsLoading: false })
-    } catch (error) {
-      set({ vacancyTotals: EMPTY_VACANCY_TOTALS, vacancyTotalsLoading: false })
       toastError(error)
     }
   }

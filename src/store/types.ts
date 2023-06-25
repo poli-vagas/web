@@ -7,9 +7,7 @@ import {
 } from '~/services/auth/types'
 import {
   VacancyTableRequest,
-  VacancyTableResponse,
-  VacancyTotalsRequest,
-  VacancyTotalsResponse
+  VacancyTableResponse
 } from '~/services/vacancies/types'
 import {
   NotificationDetailsRequest,
@@ -72,10 +70,7 @@ export type VacanciesStore = {
   allVacancies: VacancyTableResponse | null
   allVacanciesLoading: boolean
   vacancyDetailsLoading: boolean
-  vacancyTotals: VacancyTotalsResponse
-  vacancyTotalsLoading: boolean
   getAllVacancies: (params: VacancyTableRequest) => void
-  getVacancyTotals: (params: VacancyTotalsRequest) => void
   clearVacancyDetails: () => void
 }
 

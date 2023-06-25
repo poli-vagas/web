@@ -24,17 +24,17 @@ const Dashboard: React.FC = () => {
 
   const menuOptions = [
     { value: '', name: 'Início', icon: <IoHomeOutline /> },
-    { value: 'vacancies', name: 'Vagas', icon: <IoBriefcaseOutline /> },
-    {
-      value: 'notification',
-      name: 'Notificações',
-      icon: <IoNotificationsOutline />
-    },
-    {
-      value: 'configuration',
-      name: 'Configurações',
-      icon: <IoSettingsOutline />
-    }
+    { value: 'vacancies', name: 'Vagas', icon: <IoBriefcaseOutline /> }
+    // {
+    //   value: 'notification',
+    //   name: 'Notificações',
+    //   icon: <IoNotificationsOutline />
+    // },
+    // {
+    //   value: 'configuration',
+    //   name: 'Configurações',
+    //   icon: <IoSettingsOutline />
+    // }
   ]
 
   const handleChangePage = useCallback(

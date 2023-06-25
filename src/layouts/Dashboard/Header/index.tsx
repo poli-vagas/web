@@ -7,7 +7,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
     <S.Container>
       <S.Title>{title}</S.Title>
-      <Profile />
+      {/* <Profile /> */}
     </S.Container>
   )
 }

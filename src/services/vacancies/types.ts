@@ -5,16 +5,6 @@ export type Child = {
   bornDate: string
 }
 
-export interface VacancyTotalsRequest {
-  period: number
-}
-
-export interface VacancyTotalsResponse {
-  totalVacancies: number
-  activeVacancies: number
-  totalPosts: number
-}
-
 export interface VacancyTableRequest {
   limit?: number
   page?: number
@@ -25,6 +15,14 @@ export interface VacancyTableRequest {
   type: string | null
 }
 
+export interface Benefits {
+  hasFoodVoucher: boolean | null
+  hasTransportVoucher: boolean | null
+  hasHealthInsurance: boolean | null
+  hasLifeInsurance: boolean | null
+  others: boolean | null
+}
+
 export type VacancyTableRow = {
   id: string
   company: {
@@ -32,41 +30,38 @@ export type VacancyTableRow = {
     name: string
   }
   type: string
-  semester: number
+  semester: number | null
   limitDate: string | null
-  graduationDate: null
+  graduationDate: string | null
   integrationAgent: null
   courses: null
   description: string
   area: string
-  workplace: null
-  hoursPerDay: number
-  salary: number
-  benefits: {
-    hasFoodVoucher: null
-    hasTransportVoucher: true
-    hasHealthInsurance: null
-    hasLifeInsurance: null
-    others: null
-  }
+  workplace: string | null
+  hoursPerDay: number | null
+  salary: number | null
+  benefits: Benefits
   requirements: {
-    englishLevel: null
-    otherLanguages: null
-    softSkills: null
-    hardSkills: null
+    englishLevel: string | null
+    otherLanguages: string | null
+    softSkills: string | null
+    hardSkills: string | null
   }
   contact: {
-    linkedinUrl: null
-    email: null
-    emailInstructions: null
-    phone: null
-    url: null
-    externalId: string
+    linkedinUrl: string | null
+    email: string | null
+    emailInstructions: string | null
+    phone: string | null
+    url: string | null
+    externalId: string | null
   }
   createdTime: string
 }
 
 export interface VacancyTableResponse {
-  count: number
-  rows: VacancyTableRow[] | []
+  page: number
+  pageSize: number
+  total: number
+  totalFiltered: number
+  jobs: VacancyTableRow[] | []
 }
