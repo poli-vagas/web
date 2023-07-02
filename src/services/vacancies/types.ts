@@ -1,24 +1,26 @@
+export interface Filter {
+  companyId?: string[]
+  type?: string[]
+  courseId?: string[]
+  minLimitDate?: string
+  maxLimitDate?: string
+  area?: string[]
+  workplace?: string[]
+  minHoursPerDay?: number
+  maxHoursPerDay?: number
+  minSalary?: number
+  benefits?: string[]
+  hasFoodVoucher?: boolean | null
+  hasTransportVoucher?: boolean | null
+  hasHealthInsurance?: boolean | null
+  hasLifeInsurance?: boolean | null
+  englishLevel?: string[]
+  minCreatedTime?: string
+  maxCreatedTime?: string
+}
+
 export interface VacancyTableRequest {
-  filter: {
-    companyId?: string[]
-    type?: string[]
-    courseId?: string[]
-    minLimitDate?: string
-    maxLimitDate?: string
-    area?: string[]
-    workplace?: string[]
-    minHoursPerDay?: number
-    maxHoursPerDay?: number
-    minSalary?: number
-    benefits?: string[]
-    hasFoodVoucher?: boolean | null
-    hasTransportVoucher?: boolean | null
-    hasHealthInsurance?: boolean | null
-    hasLifeInsurance?: boolean | null
-    englishLevel?: string[]
-    minCreatedTime?: string
-    maxCreatedTime?: string
-  }
+  filter: Filter
   pageSize: number
   page: number
   notification?: boolean

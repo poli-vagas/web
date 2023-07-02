@@ -1,150 +1,86 @@
 import { useFormik } from 'formik'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import * as Yup from 'yup'
 import { useNavigate, useParams } from 'react-router'
-import { Modal, Select, TextArea } from '~/components'
+import { Button, Input, Modal } from '~/components'
 import * as S from './styles'
-import { date, notification } from '~/constants'
 import useStore from '~/store'
 
 const validation = Yup.object().shape({
-  company: Yup.string().required('Campo obrigatório'),
-  message: Yup.string()
-    .max(100, 'Texto muito grande.')
-    .required('Campo obrigatório'),
-  month: Yup.string().when('company', {
-    is: '3',
-    then: Yup.string().required('Campo obrigatório'),
-    otherwise: Yup.string().optional().nullable()
-  }),
-  year: Yup.string().when('company', {
-    is: '3',
-    then: Yup.string().required('Campo obrigatório'),
-    otherwise: Yup.string().optional().nullable()
-  })
+  email: Yup.string().required('Campo obrigatório')
 })
 const INITIAL_VALUES = {
-  company: 0,
-  month: '',
-  year: '',
-  message: ''
+  email: ''
 }
 
-const NotificationDetails: React.FC = () => {
+const SendEmail: React.FC = () => {
   const navigate = useNavigate()
   const { id } = useParams<'id'>()
 
-  const {
-    getNotificationDetails,
-    clearNotificationDetails,
-    notificationDetails
-  } = useStore((store) => ({
-    getNotificationDetails: store.getNotificationDetails,
-    clearNotificationDetails: store.clearNotificationDetails,
-    notificationDetails: store.notificationDetails
+  const { patchSendNotification, saveFilter, filter } = useStore((store) => ({
+    patchSendNotification: store.patchSendNotification,
+    saveFilter: store.saveFilter,
+    filter: store.filter
   }))
 
-  const { values, errors, handleChange, setValues, resetForm } = useFormik({
+  const onDismiss = useCallback(() => {
+    navigate('/dash/vacancies', { replace: true })
+    saveFilter({})
+  }, [saveFilter, navigate])
+
+  const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: INITIAL_VALUES,
     validationSchema: validation,
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit: () => new Promise(() => null)
+    onSubmit: (values) => {
+      const { email } = values
+      patchSendNotification({ email, filter })
+      onDismiss()
+    }
   })
-
-  const onDismiss = useCallback(() => {
-    navigate('/dash/notification', { replace: true })
-    clearNotificationDetails()
-  }, [clearNotificationDetails, navigate])
-
-  useEffect(() => {
-    if (id) {
-      getNotificationDetails({ id: Number(id) })
-    } else {
-      clearNotificationDetails()
-      resetForm()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
-  useEffect(() => {
-    if (notificationDetails) {
-      setValues({
-        company: Number(notificationDetails?.company),
-        message: notificationDetails.message,
-        month: notificationDetails?.month?.toString() || '',
-        year: notificationDetails?.year?.toString() || ''
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notificationDetails])
 
   return (
     <Modal isOpen={true} closeModal={() => onDismiss()}>
       <S.Container>
         <S.Header>
-          <h2>Notificações</h2>
+          <h2>Cadastrar e-mail</h2>
           <S.ButtonClose onClick={() => onDismiss()}>
             <AiOutlineCloseCircle size={18} /> Fechar
           </S.ButtonClose>
         </S.Header>
         <S.Body>
-          <S.Row>
-            <Select
-              label="Empresa"
-              name="company"
-              id="company"
-              value={values.company}
-              error={errors.company}
-              onChange={handleChange}
+          <S.WrapperInput>
+            <Input
+              label="E-mail"
+              placeholder="Ex.: meuemail@email.com.br"
+              name="email"
+              id="email"
+              value={values.email}
+              error={errors.email}
               disabled={!!id}
-              options={notification.COMPANY_LIST}
+              onChange={handleChange}
             />
-
-            {values.company.toString() === '3' && (
-              <>
-                <Select
-                  label="Mês"
-                  name="month"
-                  id="month"
-                  marginHorizontal="2rem"
-                  value={values.month.toString()}
-                  error={errors.month}
-                  onChange={handleChange}
-                  disabled={!!id}
-                  options={date.MONTH_LIST}
-                />
-
-                <Select
-                  label="Ano"
-                  name="year"
-                  id="year"
-                  value={values.year.toString()}
-                  error={errors.year}
-                  onChange={handleChange}
-                  disabled={!!id}
-                  options={date.YEAR_LIST}
-                />
-              </>
-            )}
-          </S.Row>
-
-          <TextArea
-            label="Notificação"
-            placeholder="Escreva aqui sua notificação..."
-            name="message"
-            id="message"
-            value={values.message}
-            error={errors.message}
-            disabled={!!id}
-            onChange={handleChange}
-            rows={4}
-          />
+          </S.WrapperInput>
         </S.Body>
+
+        <S.Footer>
+          <Button
+            outline
+            width="18.8rem"
+            marginHorizontal="4rem"
+            onClick={() => onDismiss()}
+          >
+            Cancelar
+          </Button>
+          <Button width="18.8rem" onClick={() => handleSubmit()}>
+            Salvar
+          </Button>
+        </S.Footer>
       </S.Container>
     </Modal>
   )
 }
 
-export default NotificationDetails
+export default SendEmail

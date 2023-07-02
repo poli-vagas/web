@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 84rem;
+  width: 65rem;
   display: flex;
   flex-direction: column;
   padding: 4.7rem 7rem;
@@ -45,10 +45,14 @@ export const ButtonClose = styled.button`
 `
 export const Body = styled.div``
 
-export const Row = styled.div`
+export const WrapperInput = styled.div`
+  margin: 2rem 0;
+`
+
+export const Footer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: 2rem 0;
+  justify-content: flex-end;
+  margin-top: 4rem;
 `

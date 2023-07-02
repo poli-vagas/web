@@ -1,3 +1,5 @@
+import { Filter } from '../vacancies/types'
+
 export interface NotificationTableRequest {
   limit?: number
   page?: number
@@ -33,6 +35,6 @@ export interface NotificationDetailsResponse {
 }
 
 export interface SendNotificationRequest {
-  id: number
-  isSent: boolean
+  email: string
+  filter: Filter
 }

@@ -6,6 +6,7 @@ import {
   ForgotPasswordValidateCodeRequest
 } from '~/services/auth/types'
 import {
+  Filter,
   NameId,
   VacancyTableRequest,
   VacancyTableResponse
@@ -83,6 +84,7 @@ export type VacanciesStore = {
 
 export type NotificationStore = {
   allNotifications: NotificationTableResponse | null
+  filter: Filter
   allNotificationsLoading: boolean
   notificationDetails: NotificationDetailsResponse | null
   notificationDetailsLoading: boolean

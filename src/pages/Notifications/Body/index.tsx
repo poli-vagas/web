@@ -11,14 +11,9 @@ import { INITIAL_PARAMS } from '../types'
 import * as S from './styles'
 
 const Body: React.FC = () => {
-  const {
-    allNotifications,
-    allNotificationsLoading,
-    patchSendNotification
-  } = useStore((state) => ({
+  const { allNotifications, allNotificationsLoading } = useStore((state) => ({
     allNotifications: state.allNotifications,
-    allNotificationsLoading: state.allNotificationsLoading,
-    patchSendNotification: state.patchSendNotification
+    allNotificationsLoading: state.allNotificationsLoading
   }))
 
   const navigate = useNavigate()
@@ -43,13 +38,6 @@ const Body: React.FC = () => {
       })
     },
     [location, navigate]
-  )
-
-  const handleSendNotification = useCallback(
-    (id: number) => {
-      patchSendNotification({ id: id, isSent: true })
-    },
-    [patchSendNotification]
   )
 
   const columns = useMemo(
@@ -113,8 +101,7 @@ const Body: React.FC = () => {
         }
         onGetNextPage={handleChangePage}
         actions={{
-          view: handleView,
-          sendNotification: handleSendNotification
+          view: handleView
         }}
       />
     </S.Container>

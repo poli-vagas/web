@@ -10,7 +10,7 @@ import Dashboard from '~/layouts/Dashboard'
 import PublicRoute from './PublicRoute'
 import VacancyDetails from '~/modals/VacancyDetails'
 // import Notifications from '~/pages/Notifications'
-// import NotificationDetails from '~/modals/NotificationDetails'
+import NotificationDetails from '~/modals/NotificationDetails'
 // import Configurations from '~/pages/Configurations'
 // import Administrators from '~/pages/Administrators'
 // import AdministratorDetails from '~/modals/AdministratorDetails'
@@ -74,11 +74,11 @@ const RoutesApp: React.FC = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route path="dash/vacancies/:id" element={<VacancyDetails />} />
-          {/* <Route
-            path="dash/notification/view/:id"
+          <Route
+            path="dash/vacancies/send-notification"
             element={<NotificationDetails />}
           />
-          <Route
+          {/* <Route
             path="dash/administrators/edit/:id"
             element={<AdministratorDetails />}
           /> */}

@@ -57,9 +57,7 @@ class NotificationsService {
     params: SendNotificationRequest
   ): Promise<number> => {
     try {
-      const result = await api.patch(`/notifications/send/${params.id}`, {
-        isSent: params.isSent
-      })
+      const result = await api.post('/notifications', params)
 
       return result.status
     } catch (error: any) {

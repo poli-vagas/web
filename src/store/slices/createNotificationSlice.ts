@@ -12,6 +12,7 @@ import {
 } from '~/services/notifications/types'
 import NotificationService from '~/services/notifications'
 import { EMPTY_NOTIFICATION_DETAILS } from '../emptyValues/notification'
+import { Filter } from '~/services/vacancies/types'
 
 const createNotificationSlice = (
   set: SetState<NotificationStore>,
@@ -21,6 +22,7 @@ const createNotificationSlice = (
     count: 0,
     rows: []
   },
+  filter: {},
   allNotificationsLoading: false,
   notificationDetails: EMPTY_NOTIFICATION_DETAILS,
   notificationDetailsLoading: false,
@@ -73,31 +75,18 @@ const createNotificationSlice = (
     params: SendNotificationRequest,
     callback?: () => void
   ) => {
-    const oldAllNotifications = get()
-      ?.allNotifications as NotificationTableResponse
     try {
       await NotificationService.patchSendNotification(params)
-      const newoldAllNotifications = {
-        ...oldAllNotifications,
-        rows: oldAllNotifications?.rows?.map((item) => {
-          if (item.id === params.id) {
-            return {
-              ...item,
-              isSent: true
-            }
-          }
-          return item
-        })
-      }
 
-      set({
-        allNotifications: newoldAllNotifications
-      })
       callback && callback()
-      toastSuccess('Notificação enviada com sucesso!')
+      toastSuccess('Email cadastrado com sucesso!')
     } catch (error) {
       toastError(error)
     }
+  },
+
+  saveFilter: async (filter: Filter) => {
+    set({ filter })
   },
 
   clearNotificationDetails: async () => {

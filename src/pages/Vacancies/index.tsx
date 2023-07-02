@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import Content from '~/layouts/Content'
 import Header from './components/Header'
 import Body from './components/Body'
@@ -8,11 +10,16 @@ import { INITIAL_PARAMS } from './types'
 import { parseBenefits } from '~/constants/vacancy'
 
 const Vacancies: React.FC = () => {
-  const { getAllVacancies, getCompanies, getCourses } = useStore((store) => ({
-    getAllVacancies: store.getAllVacancies,
-    getCompanies: store.getCompanies,
-    getCourses: store.getCourses
-  }))
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { getAllVacancies, getCompanies, getCourses, saveFilter } = useStore(
+    (store) => ({
+      getAllVacancies: store.getAllVacancies,
+      getCompanies: store.getCompanies,
+      getCourses: store.getCourses,
+      saveFilter: store.saveFilter
+    })
+  )
 
   useEffect(() => {
     getCompanies()
@@ -32,8 +39,12 @@ const Vacancies: React.FC = () => {
         } = values
         const parsedBenefits = parseBenefits(benefits ?? [])
         const filter = { ...restOfFilter, ...parsedBenefits }
-        if (notification) console.log('notification', filter)
-        else
+        if (notification) {
+          saveFilter(filter)
+          navigate('send-notification', {
+            state: { backgroundLocation: location }
+          })
+        } else
           getAllVacancies({
             filter,
             ...rest
