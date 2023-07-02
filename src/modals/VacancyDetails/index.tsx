@@ -189,7 +189,7 @@ const VacancyDetails: React.FC = () => {
             disabled
             marginVertical="1rem"
             size={Sizes.SMALL}
-            label="Area"
+            label="Área"
           />
         )}
 

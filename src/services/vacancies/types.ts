@@ -10,10 +10,11 @@ export interface VacancyTableRequest {
     minHoursPerDay?: number
     maxHoursPerDay?: number
     minSalary?: number
-    hasFoodVoucher?: boolean
-    hasTransportVoucher?: boolean
-    hasHealthInsurance?: boolean
-    hasLifeInsurance?: boolean
+    benefits?: string[]
+    hasFoodVoucher?: boolean | null
+    hasTransportVoucher?: boolean | null
+    hasHealthInsurance?: boolean | null
+    hasLifeInsurance?: boolean | null
     englishLevel?: string[]
     minCreatedTime?: string
     maxCreatedTime?: string

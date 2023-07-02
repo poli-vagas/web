@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { format } from 'date-fns'
 import { IoBriefcase, IoBriefcaseOutline } from 'react-icons/io5'
 import { vacancy } from '~/constants'
+import { capitalize } from '~/utils/string'
 
 const Body: React.FC = () => {
   const { allVacancies, allVacanciesLoading } = useStore((store) => ({
@@ -110,7 +111,7 @@ const Body: React.FC = () => {
       width: '30rem'
     },
     {
-      Header: 'Area',
+      Header: 'Área',
       accessor: 'area',
       align: 'left',
       width: '30rem'
@@ -171,16 +172,14 @@ const Body: React.FC = () => {
 
       <Table
         columns={mostPopularColumns}
-        count={allVacancies.total}
+        count={allVacancies.totalFiltered}
         page={values.page}
         data={
           allVacancies?.jobs?.map?.((data: VacancyTableRow) => ({
             ...data,
             company: {
-              name: data.company.name.replace(
-                'EMPRESA NÃO INFORMADA - SUPER ESTÁGIOS',
-                'N/A - Super estágios'
-              )
+              ...data.company,
+              name: capitalize(data.company.name)
             },
             type: vacancy.type(data.type ?? ''),
             limitDate: data.limitDate
@@ -190,9 +189,7 @@ const Body: React.FC = () => {
               ? format(new Date(data.graduationDate), 'dd/MM/yyyy')
               : '',
             courses: vacancy.courses(data.courses),
-            area:
-              data.area.charAt(0).toUpperCase() +
-              data.area.slice(1).toLowerCase(),
+            area: capitalize(data.area),
             workplace: vacancy.workplace(data.workplace ?? ''),
             requirements: {
               ...data.requirements,

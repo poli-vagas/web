@@ -38,7 +38,7 @@ const InputContainer = css`
 
   select {
     width: 100%;
-    height: 3.5rem;
+    height: 3.7rem;
     border: 0;
     background: transparent;
     color: ${({ theme }) => theme.colors.text};

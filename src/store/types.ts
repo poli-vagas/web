@@ -6,6 +6,7 @@ import {
   ForgotPasswordValidateCodeRequest
 } from '~/services/auth/types'
 import {
+  NameId,
   VacancyTableRequest,
   VacancyTableResponse
 } from '~/services/vacancies/types'
@@ -68,9 +69,15 @@ export type ForgotStore = {
 
 export type VacanciesStore = {
   allVacancies: VacancyTableResponse | null
+  companies: NameId[]
+  courses: NameId[]
   allVacanciesLoading: boolean
+  companiesLoading: boolean
   vacancyDetailsLoading: boolean
+  coursesLoading: boolean
   getAllVacancies: (params: VacancyTableRequest) => void
+  getCompanies: () => void
+  getCourses: () => void
   clearVacancyDetails: () => void
 }
 

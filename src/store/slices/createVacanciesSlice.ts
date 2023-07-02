@@ -17,7 +17,11 @@ const createVacanciesSlice = (
     totalFiltered: 0,
     jobs: []
   },
+  companies: [],
+  courses: [],
   allVacanciesLoading: false,
+  companiesLoading: false,
+  coursesLoading: false,
   vacancyDetailsLoading: false,
   getAllVacancies: async (params: VacancyTableRequest) => {
     try {
@@ -43,6 +47,38 @@ const createVacanciesSlice = (
           jobs: []
         },
         allVacanciesLoading: false
+      })
+      toastError(error)
+    }
+  },
+  getCompanies: async () => {
+    try {
+      set({
+        companies: [],
+        companiesLoading: true
+      })
+      const result = await VacanciesService.getCompanies()
+      set({ companies: result, companiesLoading: false })
+    } catch (error) {
+      set({
+        companies: [],
+        companiesLoading: false
+      })
+      toastError(error)
+    }
+  },
+  getCourses: async () => {
+    try {
+      set({
+        courses: [],
+        coursesLoading: true
+      })
+      const result = await VacanciesService.getCourses()
+      set({ courses: result, coursesLoading: false })
+    } catch (error) {
+      set({
+        courses: [],
+        coursesLoading: false
       })
       toastError(error)
     }

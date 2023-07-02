@@ -10,8 +10,16 @@ import * as S from './styles'
 import { INITIAL_PARAMS } from '../../types'
 import { periods, vacancy } from '~/constants'
 import { money } from '~/utils/money'
+import SelectCheckbox from '~/components/SelectCheckbox'
+import useStore from '~/store'
+import { NameId } from '~/services/vacancies/types'
+import { capitalize } from '~/utils/string'
 
 const Header: React.FC = () => {
+  const { companies, courses } = useStore((store) => ({
+    companies: store.companies,
+    courses: store.courses
+  }))
   const [advancedFilter, setAdvancedFilter] = useState(false)
   const {
     values,
@@ -20,6 +28,14 @@ const Header: React.FC = () => {
     setFieldValue,
     resetForm
   } = useFormikContext<typeof INITIAL_PARAMS>()
+  const companyOptions = companies?.map?.((item: NameId) => ({
+    value: item.id,
+    label: capitalize(item.name)
+  }))
+  const courseOptions = courses?.map?.((item: NameId) => ({
+    value: item.id,
+    label: capitalize(item.name)
+  }))
 
   const handleSubmitFilter = useCallback(() => {
     setFieldValue('page', 1)
@@ -54,6 +70,7 @@ const Header: React.FC = () => {
     resetForm()
     handleSubmitFilter()
   }, [handleSubmitFilter, resetForm])
+  // console.log(values)
 
   useEffect(() => {
     handleSubmitFilter()
@@ -100,21 +117,114 @@ const Header: React.FC = () => {
             size={Sizes.SMALL}
             backgroundWhite
             onChange={handleChangeMinCreatedTime}
-            options={periods.PERIODS}
+            options={periods.LAST_PERIODS}
           />
         </div>
       </S.RowFilter>
       {advancedFilter && (
         <>
           <S.AdvancedFilterGroup>
-            <Input
-              id="minSalary"
-              name="minSalary"
-              placeholder="Salário Mínimo"
-              value={`R$ ${money(Number(values?.filter.minSalary ?? 0))}`}
+            <SelectCheckbox
+              name="filter.companyId"
+              placeholder="Empresa"
+              options={companyOptions}
+              value={
+                companyOptions
+                  ? companyOptions.filter((option) =>
+                      values.filter.companyId?.includes?.(option.value)
+                    )
+                  : []
+              }
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.companyId',
+                  options.map((option) => option.value)
+                )
+              }
+            />
+            <SelectCheckbox
+              name="filter.type"
+              placeholder="Tipo"
+              options={vacancy.TYPE_LIST}
+              value={vacancy.TYPE_LIST.filter((option) =>
+                values.filter.type?.includes?.(option.value)
+              )}
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.type',
+                  options.map((option) => option.value)
+                )
+              }
+            />
+            <SelectCheckbox
+              name="filter.courseId"
+              placeholder="Curso"
+              options={courseOptions}
+              value={
+                courseOptions
+                  ? courseOptions.filter((option) =>
+                      values.filter.courseId?.includes?.(option.value)
+                    )
+                  : []
+              }
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.courseId',
+                  options.map((option) => option.value)
+                )
+              }
+            />
+            <SelectFilter
+              id="minLimitDate"
+              name="minLimitDate"
+              placeholder="Prazo mínimo para inscrção"
+              value={values?.filter.minLimitDate?.toString() ?? '0'}
               size={Sizes.SMALL}
               backgroundWhite
-              onChange={handleChangeMinSalary}
+              onChange={(e) =>
+                setFieldValue('filter.minLimitDate', e.currentTarget.value)
+              }
+              options={periods.NEXT_PERIODS}
+            />
+            <SelectFilter
+              id="maxLimitDate"
+              name="maxLimitDate"
+              placeholder="Prazo máximo para inscrção"
+              value={values?.filter.maxLimitDate?.toString() ?? '0'}
+              size={Sizes.SMALL}
+              backgroundWhite
+              onChange={(e) =>
+                setFieldValue('filter.maxLimitDate', e.currentTarget.value)
+              }
+              options={periods.NEXT_PERIODS}
+            />
+            <SelectCheckbox
+              name="filter.area"
+              placeholder="Área"
+              options={vacancy.AREA_LIST}
+              value={vacancy.AREA_LIST.filter((option) =>
+                values.filter.area?.includes?.(option.value)
+              )}
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.area',
+                  options.map((option) => option.value)
+                )
+              }
+            />
+            <SelectCheckbox
+              name="filter.workplace"
+              placeholder="Espaço de trabalho"
+              options={vacancy.WORKPLACE_LIST}
+              value={vacancy.WORKPLACE_LIST.filter((option) =>
+                values.filter.workplace?.includes?.(option.value)
+              )}
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.workplace',
+                  options.map((option) => option.value)
+                )
+              }
             />
             <SelectFilter
               id="filter.minHoursPerDay"
@@ -136,15 +246,46 @@ const Header: React.FC = () => {
               onChange={handleChange}
               options={vacancy.HOURS_PER_DAY_LIST}
             />
-            <SelectFilter
-              id="type"
-              name="type"
-              placeholder="Tipo"
-              value={values.filter.type?.toString() || ''}
+            <Input
+              id="filter.minSalary"
+              name="filter.minSalary"
+              placeholder="Salário Mínimo"
+              value={
+                values?.filter.minSalary
+                  ? `R$ ${money(Number(values?.filter.minSalary ?? 0))}`
+                  : ''
+              }
               size={Sizes.SMALL}
               backgroundWhite
-              onChange={handleChange}
-              options={vacancy.TYPE_LIST}
+              onChange={handleChangeMinSalary}
+            />
+            <SelectCheckbox
+              name="filter.benefits"
+              placeholder="Benefícios"
+              options={vacancy.BENEFITS_LIST}
+              value={vacancy.BENEFITS_LIST.filter((option) =>
+                values.filter.benefits?.includes?.(option.value)
+              )}
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.benefits',
+                  options.map((option) => option.value)
+                )
+              }
+            />
+            <SelectCheckbox
+              name="filter.englishLevel"
+              placeholder="Nível de inglês"
+              options={vacancy.ENGLISH_LEVEL_LIST}
+              value={vacancy.ENGLISH_LEVEL_LIST.filter((option) =>
+                values.filter.englishLevel?.includes?.(option.value)
+              )}
+              onChange={(options) =>
+                setFieldValue(
+                  'filter.englishLevel',
+                  options.map((option) => option.value)
+                )
+              }
             />
           </S.AdvancedFilterGroup>
 

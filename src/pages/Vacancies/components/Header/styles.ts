@@ -45,7 +45,7 @@ export const ButtonAdvancedFilter = styled.button<{ active: boolean }>`
 export const AdvancedFilterGroup = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   justify-items: stretch;
   justify-self: center;
   grid-gap: 1rem;

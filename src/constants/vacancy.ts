@@ -1,4 +1,5 @@
 import { Benefits, NameId } from '~/services/vacancies/types'
+import { capitalize } from '~/utils/string'
 
 export const type = (t: string) => {
   switch (t) {
@@ -59,7 +60,7 @@ export const benefits = (b?: Benefits): string => {
   }
 
   if (b?.others) {
-    benefitList.push('Outros benefícios')
+    benefitList.push(b?.others)
   }
 
   if (benefitList.length === 0) {
@@ -69,8 +70,37 @@ export const benefits = (b?: Benefits): string => {
   return benefitList.join(', ')
 }
 
+export const parseBenefits = (
+  benefitsArray: string[]
+): Omit<Benefits, 'others'> => {
+  const benefits: Omit<Benefits, 'others'> = {
+    hasFoodVoucher: null,
+    hasTransportVoucher: null,
+    hasHealthInsurance: null,
+    hasLifeInsurance: null
+  }
+
+  if (benefitsArray.includes('Vale alimentação')) {
+    benefits.hasFoodVoucher = true
+  }
+
+  if (benefitsArray.includes('Vale transporte')) {
+    benefits.hasTransportVoucher = true
+  }
+
+  if (benefitsArray.includes('Plano de saúde')) {
+    benefits.hasHealthInsurance = true
+  }
+
+  if (benefitsArray.includes('Seguro de vida')) {
+    benefits.hasLifeInsurance = true
+  }
+
+  return benefits
+}
+
 export const courses = (c?: NameId[]): string => {
-  const coursesList = c?.map?.((item) => item.name) ?? []
+  const coursesList = c?.map?.((item) => capitalize(item.name)) ?? []
 
   return coursesList.join(', ')
 }
@@ -94,4 +124,31 @@ export const TYPE_LIST = [
   { value: 'Trainee', label: 'Trainee' },
   { value: 'Internship', label: 'Estágio' },
   { value: 'FullTime', label: 'Emprego' }
+]
+
+export const AREA_LIST = [
+  { value: 'Consultoria', label: 'Consultoria' },
+  { value: 'Diversas áreas', label: 'Diversas áreas' },
+  { value: 'Análise e operações', label: 'Análise e operações' },
+  { value: 'Tecnologia da informação', label: 'Tecnologia da informação' },
+  { value: 'Comercial', label: 'Comercial' }
+]
+
+export const WORKPLACE_LIST = [
+  { value: 'Remote', label: 'Remoto' },
+  { value: 'Office', label: 'Presencial' },
+  { value: 'Hybrid', label: 'Híbrido' }
+]
+
+export const ENGLISH_LEVEL_LIST = [
+  { value: 'Beginner', label: 'Básico' },
+  { value: 'Intermediate', label: 'Intermediário' },
+  { value: 'Advanced', label: 'Avançado' }
+]
+
+export const BENEFITS_LIST = [
+  { value: 'Vale alimentação', label: 'Vale alimentação' },
+  { value: 'Vale transporte', label: 'Vale transporte' },
+  { value: 'Plano de saúde', label: 'Plano de saúde' },
+  { value: 'Seguro de vida', label: 'Seguro de vida' }
 ]

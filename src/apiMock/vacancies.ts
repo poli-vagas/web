@@ -268,3 +268,49 @@ export const all_vacancies_response = {
     }
   ]
 }
+
+export const companies_response = [
+  {
+    id: '3b8a0640-b925-412a-9cb1-8184c4f77349',
+    name: 'Murano Investimentos'
+  },
+  {
+    id: '0cccc601-f560-4715-89ce-bc5a9d3f7c9b',
+    name: 'Bradesco'
+  },
+  {
+    id: '78223d44-39c1-4b3d-914a-f3a7d4764613',
+    name: 'HFSE'
+  },
+  {
+    id: 'a5bc7f49-99ad-41dd-9d12-1c6cb25be3dc',
+    name: 'SBM'
+  },
+  {
+    id: '8099f523-60d1-478e-982c-4aac2f0af5c1',
+    name: 'EMPRESA NÃO INFORMADA - NUBE'
+  }
+]
+
+export const courses_response = [
+  {
+    id: '47a9c109-46ea-48ae-aa6f-9182e9d449d7',
+    name: 'CIVIL'
+  },
+  {
+    id: '1c1d3268-1182-42da-92b2-def68e58adaf',
+    name: 'TODAS'
+  },
+  {
+    id: 'ac2ec9e6-2f50-463f-b234-0c760ce22606',
+    name: 'PRODUÇÃO'
+  },
+  {
+    id: '1da4502d-40f3-4c4f-9e1d-bf4766adb0f9',
+    name: 'COMPUTAÇÃO'
+  },
+  {
+    id: '5ba448a7-45b8-4608-9999-429caf452ad4',
+    name: 'ELETRÔNICA'
+  }
+]

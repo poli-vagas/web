@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SelectFilter } from '~/components'
 import { Sizes } from '~/components/Button/types'
-import { PERIODS } from '~/constants/periods'
+import { LAST_PERIODS } from '~/constants/periods'
 import * as S from './styles'
 
 const Header: React.FC = () => {
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
         size={Sizes.SMALL}
         backgroundWhite
         onChange={(e) => setPeriod(Number(e.currentTarget.value))}
-        options={PERIODS}
+        options={LAST_PERIODS}
       />
     </S.Container>
   )

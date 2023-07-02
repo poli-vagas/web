@@ -1,38 +1,19 @@
-export const PERIODS = [
-  { value: getLastNDays(7), label: 'Últimos 7 dias' },
-  { value: getLastNDays(30), label: 'Últimos 30 dias' },
-  { value: getLastNDays(90), label: 'Últimos 90 dias' },
-  { value: getLastNMonths(12), label: 'Últimos 12 meses' },
-  {
-    value: getFormattedDate(new Date(0)) + 'T00:00:00.000Z',
-    label: 'Desde Sempre'
-  }
+export const LAST_PERIODS = [
+  { value: calculateDate(-7), label: 'Últimos 7 dias' },
+  { value: calculateDate(-30), label: 'Últimos 30 dias' },
+  { value: calculateDate(-90), label: 'Últimos 90 dias' },
+  { value: calculateDate(-365), label: 'Últimos 12 meses' }
 ]
 
-function getLastNDays(n: number) {
-  const currentDate = new Date()
-  const startDate = new Date(currentDate)
-  startDate.setDate(currentDate.getDate() - n + 1)
-  return getFormattedDate(startDate) + 'T00:00:00.000Z'
-}
+export const NEXT_PERIODS = [
+  { value: calculateDate(7), label: 'Próximos 7 dias' },
+  { value: calculateDate(30), label: 'Próximos 30 dias' },
+  { value: calculateDate(90), label: 'Próximos 90 dias' },
+  { value: calculateDate(365), label: 'Próximos 12 meses' }
+]
 
-function getLastNMonths(n: number) {
-  const currentDate = new Date()
-  const startDate = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() - n + 1,
-    1
-  )
-  return getFormattedDate(startDate) + 'T00:00:00.000Z'
-}
-
-function getFormattedDate(date: Date) {
-  const year = date.getUTCFullYear()
-  const month = padZero(date.getUTCMonth() + 1)
-  const day = padZero(date.getUTCDate())
-  return `${year}-${month}-${day}`
-}
-
-function padZero(value: number) {
-  return value.toString().padStart(2, '0')
+function calculateDate(days: number) {
+  const endDate = new Date()
+  endDate.setDate(endDate.getDate() + days)
+  return endDate.toISOString()
 }
