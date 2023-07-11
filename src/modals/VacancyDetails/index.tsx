@@ -228,7 +228,6 @@ const VacancyDetails: React.FC = () => {
               <Input
                 name="salary"
                 id="salary"
-                type="email"
                 value={`R$ ${money(vacancyDetails?.salary ?? 0)}`}
                 disabled
                 marginVertical="1rem"
