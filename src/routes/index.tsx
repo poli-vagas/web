@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useLocation } from 'react-router'
+import { useLocation, useParams, useNavigate } from 'react-router'
 import DashboardHome from '~/pages/DashboardHome'
 // import Forgot from '~/pages/Forgot'
 // import Login from '~/pages/Login'
@@ -32,6 +32,20 @@ const PrivateComponent = () => (
     <Dashboard />
   </PublicRoute>
 )
+
+const RedirectVacancyDetailsComponent = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { id } = useParams<'id'>()
+
+  useEffect(() => {
+    navigate(`/dash/vacancies/${id}`, {
+      state: { backgroundLocation: location }
+    })
+  }, [id, location, navigate])
+
+  return <Navigate to="/dash/vacancies" />
+}
 
 const RoutesApp: React.FC = () => {
   const location = useLocation()
@@ -71,7 +85,7 @@ const RoutesApp: React.FC = () => {
         </Route>
       </Routes>
 
-      {state?.backgroundLocation && (
+      {state?.backgroundLocation ? (
         <Routes>
           <Route path="dash/vacancies/:id" element={<VacancyDetails />} />
           <Route
@@ -82,6 +96,13 @@ const RoutesApp: React.FC = () => {
             path="dash/administrators/edit/:id"
             element={<AdministratorDetails />}
           /> */}
+        </Routes>
+      ) : (
+        <Routes>
+          <Route
+            path="dash/vacancies/:id"
+            element={<RedirectVacancyDetailsComponent />}
+          />
         </Routes>
       )}
     </>
